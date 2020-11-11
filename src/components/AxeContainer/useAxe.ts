@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axe, {AxeResults} from 'axe-core';
 
-export type {AxeResults} from 'axe-core';
+export type {AxeResults, Result, ImpactValue} from 'axe-core';
 
 type ResultsCallback = (res : AxeResults) => any;
 
@@ -28,7 +28,7 @@ export function useAxe(containerRef : React.RefObject<HTMLElement>, children: Re
 async function runAnalysisOn(elem : HTMLElement, callBack : (res : AxeResults) => any ) {
   axeRunning = true;
   console.log("Running axe");
-  const results = await axe.run(elem);
+  const results = await axe.run(elem, {elementRef: true});
   callBack(results);
   if (axeQueue.size) {
     for (const [newElem, newCallback] of axeQueue) {
