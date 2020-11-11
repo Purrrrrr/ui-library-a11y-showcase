@@ -1,0 +1,24 @@
+.bootstrap {
+  @import "~bootstrap/scss/bootstrap";
+}
+
+.blueprint {
+  @import "normalize.css/normalize";
+  @import "@blueprintjs/core/lib/css/blueprint";
+  @import "@blueprintjs/icons/lib/css/blueprint-icons";
+}
+
+.inline {
+  display: inline;
+}
+
+/*
+//Not used right now, since they use some deprecated react stuff
+.antd {
+  @import 'antd/dist/antd';
+}
+
+.semantic {
+  @import 'semantic-ui-css/semantic.min';
+}
+*/

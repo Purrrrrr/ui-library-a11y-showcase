@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import {AxeContainer} from './components/AxeContainer';
+
+import { Button as ButtonBlueprint } from "@blueprintjs/core";
+//import { Button as ButtonSemantic } from 'semantic-ui-react'
+//import { Button as ButtonAnt } from 'antd';
+import { Button as ButtonMaterial } from '@material-ui/core';
+import ButtonBootstrap from 'react-bootstrap/Button';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <main>
+    <h1>Showcase</h1>
+    <AxeContainer library="blueprint">
+      <ButtonBlueprint>Blueprint</ButtonBlueprint>
+    </AxeContainer>
+    <AxeContainer library="bootstrap">
+      <ButtonBootstrap variant="danger">Bootstrap Design</ButtonBootstrap>
+      <input type="text" />
+      <button></button>
+    </AxeContainer>
+    <AxeContainer library="materialDesign">
+      <ButtonMaterial>Material</ButtonMaterial>
+    </AxeContainer>
+  </main>;
 }
+
+  /*
+    <div className="semantic">
+      <ButtonSemantic>Semantic UI</ButtonSemantic>
+    </div>
+    <div className="antd">
+      <ButtonAnt>Ant Design</ButtonAnt>
+    </div> */
 
 export default App;
