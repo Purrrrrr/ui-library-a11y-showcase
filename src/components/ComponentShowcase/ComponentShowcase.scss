@@ -1,0 +1,32 @@
+.componentShowcase {
+  display: flex;
+  padding: 0.7em;
+  margin: 0.7em;
+  border: 1px solid black;
+  justify-content: space-between;
+}
+
+.componentSettings {
+  border-left: 1px solid black;
+  padding: 0.7em;
+  margin-left: 1em;
+
+  h2 {
+    margin: 0;
+  }
+  
+  label {
+    margin: 3px 0 2px;
+    display: block;
+  }
+  .boolean {
+    margin: 3px 0 2px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    label {
+      text-align: left;
+      margin: 0 0 0 2px;
+    }
+  }
+}

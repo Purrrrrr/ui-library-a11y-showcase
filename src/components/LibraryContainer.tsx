@@ -1,7 +1,7 @@
 import React from 'react';
 import './LibraryContainer.scss';
 
-type UILibrary = 'materialDesign' | 'blueprint' | 'bootstrap';
+export type UILibrary = 'materialDesign' | 'blueprint' | 'bootstrap';
 
 type LibraryContainerProps = React.PropsWithChildren<{
   library: UILibrary

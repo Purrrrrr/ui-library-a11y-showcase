@@ -1,6 +1,6 @@
 * Make CSS isolation work?
 * Add AXE
-  Format AXE results in some pretty way
+* Format AXE results in some pretty way
   Decide on components to test
     Forms
       Text inputs

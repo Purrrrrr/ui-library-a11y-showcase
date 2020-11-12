@@ -27,7 +27,7 @@ function ResultsView({results} : {results?: AxeResults}) {
 }
 
 function AxeViolation({violation} : {violation: Result}) {
-  const {nodes, id, impact, help, helpUrl, ...rest} = violation;
+  const {nodes, id, impact, help, helpUrl} = violation;
   console.log(nodes);
   return <section style={{margin: "2px 0", border: "1px solid black", padding: 5}}>
     <h2>
