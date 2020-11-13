@@ -1,63 +1,62 @@
 import React from 'react';
-import {PropsDef, PropDef} from './types';
+import {FieldsDef, FieldDef, FieldComponentProps} from './types';
 
-export function ComponentSettings<P>({props, setProps, propDefs} : {props: P, setProps: (p: P) => void, propDefs: PropsDef<P>}) {
-  const keys = Object.keys(propDefs) as [keyof P];
+interface ComponentSettingsProps<P> {
+  props: P
+  setProps: (p: P) => void
+  fields: FieldsDef<P>
+  fieldFilter?: (f: FieldDef<any>) => boolean
+}
+
+export function SettingsBox({children} : {children: React.ReactNode}) {
   return <div className="componentSettings">
     <h2>Settings</h2>
-    {keys.map(key =>
-    <ComponentSetting<P[typeof key]> propDef={propDefs[key]} name={String(key)}
-      value={props[key]} onChange={(value) => setProps({...props, [key]: value})} />
-    )}
+    {children}
   </div>
 }
 
-function ComponentSetting<P>(props : SettingInputProps<P>) {
-  return <div className={props.propDef.type}>
-    <label htmlFor={props.name}>{props.name}</label>
-    <SettingInput {...props}/>
-  </div>
+export function ComponentSettings<P>({props, setProps, fields, fieldFilter} : ComponentSettingsProps<P>) {
+  const keys = Object.keys(fields) as [keyof P];
+  return <>
+    {keys.map(key => {
+      const fieldDef = fields[key];
+      if (fieldFilter && !fieldFilter(fieldDef)) return null;
+      const Field = fieldDef.fieldComponent;
+      return <Field data={fieldDef.data} label={String(key)}
+        value={props[key]} onChange={(value) => setProps({...props, [key]: value})} />
+    })}
+  </>
 }
 
-interface SettingInputProps<P> {
-  name: string
-  value: P
-  onChange: (p: P) => void
-  propDef: PropDef<P>
+export function StringInput({value, onChange, label} : FieldComponentProps<string>) {
+  return <LabeledInput type="text" value={value} onChange={e => onChange(e.target.value)} label={label} />;
 }
-function SettingInput<P>(props : SettingInputProps<P>) : JSX.Element {
-  const {name} = props;
-  const {options} = props.propDef;
-  if (options && options.length) {
-    const {value, onChange} = props;
-    return <select id={name} value={options.indexOf(value)} onChange={e => onChange(options[parseInt(e.target.value, 10)])}>
+export function NumberInput({value, onChange, label} : FieldComponentProps<number>) {
+  return <LabeledInput type="number" value={String(value)} onChange={e => onChange(parseFloat(e.target.value))} label={label} />;
+}
+export function BooleanInput({value, onChange, label} : FieldComponentProps<boolean>) {
+  return <LabeledInput type="checkbox" className="boolean" checked={value} onChange={e => onChange(e.target.checked)} label={label} />;
+}
+export function OptionsInput<T>({value, onChange, label, data: options} : FieldComponentProps<T, T[]>) {
+  if (!options) return <>Error</>;
+  return <Labeled label={label}>
+    <select id={label} value={options.indexOf(value)} onChange={e => onChange(options[parseInt(e.target.value, 10)])}>
       {options.map((optionValue, index) => <option value={index} key={index}>{String(optionValue)}</option>)}
     </select>
-  }
-  if (isStringInput(props)) {
-    const {value, onChange} = props;
-    return <input id={name} type="text" value={value} onChange={e => {onChange(e.target.value)}} />
-  }
-  if (isNumberInput(props)) {
-    const {value, onChange} = props;
-    return <input id={name} type="number" value={value} onChange={e => {onChange(parseFloat(e.target.value))}} />
-  }
-  if (isBooleanInput(props)) {
-    const {value, onChange} = props;
-    return <input id={name} type="checkbox" checked={value} onChange={e => {onChange(e.target.checked)}} />
-  }
-  const {value, onChange, propDef} = props;
-  const converter = propDef.converter;
-  if (!converter) return <p>{String(value)}</p>
-  return <input id={name} type="text" value={String(value)} onChange={e => {onChange(converter(e.target.value))}} />
+  </Labeled>
 }
 
-function isStringInput(a : any) : a is SettingInputProps<string> {
-  return a.propDef.type === 'string';
+interface LabeledInputProps extends React.ComponentProps<"input">{
+  label: string
 }
-function isNumberInput(a : any) : a is SettingInputProps<number> {
-  return a.propDef.type === 'number';
+function LabeledInput({label, className, ...props} : LabeledInputProps) {
+  return <Labeled label={label} className={className}>
+    <input {...props} id={label} />
+  </Labeled>
 }
-function isBooleanInput(a : any) : a is SettingInputProps<boolean> {
-  return a.propDef.type === 'boolean';
+function Labeled({label, className, children} : LabeledInputProps) {
+  return <div className={className}>
+    <label htmlFor={label}>{label}</label>
+    {children}
+  </div>
 }

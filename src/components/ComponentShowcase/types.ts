@@ -5,23 +5,23 @@ type _ShowCase<DefProps, AllProps> = {
   library: UILibrary
   defaults?: Partial<AllProps>
   component: React.JSXElementConstructor<DefProps | AllProps>
-  defs: PropsDef<DefProps>
+  fields: FieldsDef<DefProps>
 }
-//type PartialProps<DefProps, AllProps> = {[k in keyof AllProps]: k extends keyof DefProps ? DefProps[k] : never};
 
-export type PropsDef<P> = {
-  [key in keyof P] : PropDef<NonNullable<P[key]>>
+export type FieldsDef<P> = {
+  [key in keyof P] : FieldDef<P[key], any>
 }
-export type PropDef<T> = {
-  type: PropType<T>
+export type FieldDef<T, Data = undefined> = {
   default: T
-  options?: [T]
-  //min?: T extends number ? number : never
-  //max?: T extends number ? number : never
-} & Convertible<T>
-type Convertible<T> = T extends (number | string | boolean) ? {converter?: never} : {converter: (s: string) => T}
+  data?: Data
+  valueGenerator?: () => T[]
+  fieldComponent: FieldComponent<T, Data>
+}
 
-type PropType<T> = T extends string ? "string"
-  : T extends number ? "number"
-  : T extends boolean ? "boolean"
-  : "other"
+export type FieldComponent<T, Data = undefined> = React.JSXElementConstructor<FieldComponentProps<T, Data>>;
+export interface FieldComponentProps<T, Data = undefined> {
+  label: string
+  value: T
+  onChange: (t: T) => void
+  data: Data
+}

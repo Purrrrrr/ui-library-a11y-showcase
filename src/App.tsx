@@ -1,20 +1,23 @@
 import React from 'react';
 import './App.scss';
 import {AxeContainer} from './components/AxeContainer';
-import {ComponentShowcase, ShowCase} from './components/ComponentShowcase';
+import {ComponentShowcase, ShowCase, stringField, booleanField, optionsField} from './components/ComponentShowcase';
 
-import { Button as ButtonBlueprint } from "@blueprintjs/core";
+import { Button as ButtonBlueprint, Intent} from "@blueprintjs/core";
 //import { Button as ButtonSemantic } from 'semantic-ui-react'
 //import { Button as ButtonAnt } from 'antd';
 import { Button as ButtonMaterial } from '@material-ui/core';
 import ButtonBootstrap from 'react-bootstrap/Button';
 
-const buttonShowcase : ShowCase<{text: string, disabled: boolean}, typeof ButtonBlueprint>= {
+const buttonShowcase : ShowCase<{intent: Intent,text: string, disabled: boolean, large: boolean, outlined: boolean}, typeof ButtonBlueprint>= {
   library: "blueprint",
   component: ButtonBlueprint,
-  defs: {
-    text: { type: "string", default: "Text" },
-    disabled: { type: "boolean", default: false },
+  fields: {
+    intent: optionsField(Object.values(Intent)),
+    text: stringField("Text"),
+    disabled: booleanField(),
+    large: booleanField(),
+    outlined: booleanField(),
   }
 }
 
