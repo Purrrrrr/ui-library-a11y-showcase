@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axe, {AxeResults} from 'axe-core';
 
-export type {AxeResults, Result, ImpactValue} from 'axe-core';
+export type {AxeResults, Result, ImpactValue, NodeResult} from 'axe-core';
 
 type ResultsCallback = (res : AxeResults) => any;
 

@@ -1,0 +1,23 @@
+.violatingNodeReport {
+  &:hover, &:focus {
+    background: linear-gradient(0deg, rgba(205,95,0,0.083) 0%, rgba(205,95,0,0.05) 100%); 
+    outline: 1px solid black;
+  }
+}
+
+.violationOutliner {
+  outline: 3px solid rgba(205,20,0,0.5);
+  background: rgba(205,20,0,0.1);
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(205,20,0,0.1);
+    transform: scale(1.2);
+  }
+  100% {
+    background-color: rgba(205,20,0,0.5);
+    transform: scale(1);
+  }
+}

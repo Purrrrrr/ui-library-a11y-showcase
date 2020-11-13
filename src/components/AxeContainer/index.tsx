@@ -1,6 +1,9 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {LibraryContainer} from '../LibraryContainer';
-import {useAxe, AxeResults, Result, ImpactValue} from './useAxe';
+import {useAxe, AxeResults, Result, ImpactValue, NodeResult} from './useAxe';
+import {useElementOutliner} from './useElementOutliner';
+
+import './AxeContainer.scss'
 
 interface AxeContainerProps extends React.ComponentProps<typeof LibraryContainer> {}
 
@@ -35,6 +38,8 @@ function AxeViolation({violation} : {violation: Result}) {
       <Impact impact={impact} />
     </h2>
     {help}. <a href={helpUrl}>More info</a>
+    <h3>Nodes</h3>
+    {nodes.map(node => <ViolatingNode node={node} />)}
   </section>
 }
 
@@ -42,4 +47,22 @@ function Impact({impact} : {impact?: ImpactValue}) {
   return <span style={{background: '#555', color: 'white', borderRadius: 5, padding: 3, margin: "0 8px", fontSize: 14}}>
     Impact: {impact}
   </span>
+}
+
+function ViolatingNode({node} : {node: NodeResult}) {
+  const {element, target, html, failureSummary} = node;
+  const [isOutlining, setIsOutlining] = useState(false);
+  useElementOutliner(isOutlining ? element : undefined);
+  //const messages = [...any, ...all, ...none].map(r => r.message);
+  return <div className="violatingNodeReport" 
+    tabIndex={0}
+    onMouseEnter={() => setIsOutlining(true)}
+    onMouseLeave={(e) => setIsOutlining(false)}
+    onFocus={() => setIsOutlining(true)}
+    onBlur={() => setIsOutlining(false)}
+  >
+    <h4>CSS Path: {target.join(" - ")}</h4>
+    <p>Offending HTML: {html}</p>
+    {failureSummary} 
+  </div>
 }
