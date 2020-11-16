@@ -22,7 +22,7 @@ export function ComponentSettings<P>({props, setProps, fields, fieldFilter} : Co
       const fieldDef = fields[key];
       if (fieldFilter && !fieldFilter(fieldDef)) return null;
       const Field = fieldDef.fieldComponent;
-      return <Field data={fieldDef.data} label={String(key)}
+      return <Field key={String(key)} data={fieldDef.data} label={String(key)}
         value={props[key]} onChange={(value) => setProps({...props, [key]: value})} />
     })}
   </>

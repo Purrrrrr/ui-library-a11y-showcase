@@ -1,7 +1,6 @@
 import {useEffect, useRef} from 'react';
 
 export function useElementOutliner(element ?: HTMLElement) {
-  console.log(element);
   const outliner = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

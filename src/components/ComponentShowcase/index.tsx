@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { AxeContainer } from '../AxeContainer';
 import {ShowCase, FieldsDef, FieldDef, FieldComponent} from './types';
 import {SettingsBox,ComponentSettings, StringInput, NumberInput, BooleanInput, OptionsInput} from './ComponentSettings';
+import {ComponentVariants} from './ComponentVariants';
 import './ComponentShowcase.scss'
 
 export type {ShowCase} from './types';
@@ -13,7 +14,7 @@ export function ComponentShowcase<P,A extends React.JSXElementConstructor<any>>(
 
   return <section className="componentShowcase">
     <AxeContainer library={library}>
-      {generateVariants ? <GeneratedVariants Component={Component} props={props} fields={fields} />: <Component {...props}/>}
+      {generateVariants ? <ComponentVariants Component={Component} props={props} fields={fields} />: <Component {...props}/>}
     </AxeContainer>
     <SettingsBox>
       <BooleanInput label="Generate variants automatically" value={generateVariants} onChange={setGenerateVariants} data={undefined}/>
@@ -29,28 +30,6 @@ function getDefaultProps<P>(propDefs : FieldsDef<P>) : P {
     props[key] = propDefs[key].default;
   }
   return props as P;
-}
-
-function GeneratedVariants<P>({Component, props, fields} : {Component: React.JSXElementConstructor<P>, props: P, fields: FieldsDef<P>}) {
-  const variants = generateVariants(props, fields);
-  console.log(variants);
-  return <>{variants.map(variant => <Component {...variant} />)}</>;
-
-}
-function generateVariants<P>(props: P, fields: FieldsDef<P>) : P[] {
-  let variants : P[] = [props];
-  const fieldDefs = Object.entries(fields) as [[keyof P, FieldDef<P[keyof P], any> ]];
-  for (const [key, field] of fieldDefs) {
-    if (!field.valueGenerator) continue;
-    const values = field.valueGenerator();
-    if (values.length === 0) continue;
-
-    const currentVariants = variants;
-    variants = values.flatMap(value => 
-      currentVariants.map(variant => ({...variant, [key]: value}))
-    )
-  }
-  return variants;
 }
 
 export function stringField(defaultValue : string = "") : FieldDef<string> {

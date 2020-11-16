@@ -31,7 +31,6 @@ function ResultsView({results} : {results?: AxeResults}) {
 
 function AxeViolation({violation} : {violation: Result}) {
   const {nodes, id, impact, help, helpUrl} = violation;
-  console.log(nodes);
   return <section style={{margin: "2px 0", border: "1px solid black", padding: 5}}>
     <h2>
       {id}
@@ -39,7 +38,7 @@ function AxeViolation({violation} : {violation: Result}) {
     </h2>
     {help}. <a href={helpUrl}>More info</a>
     <h3>Nodes</h3>
-    {nodes.map(node => <ViolatingNode node={node} />)}
+    {nodes.map((node,i) => <ViolatingNode key={i} node={node} />)}
   </section>
 }
 
