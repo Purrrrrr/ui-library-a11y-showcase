@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {useDelayedEffect} from './useDelayedEffect';
 import axe, {AxeResults} from 'axe-core';
 
@@ -11,7 +11,7 @@ const axeQueue = new Map<HTMLElement, ResultsCallback>();
 
 export function useAxe(containerRef : React.RefObject<HTMLElement>, children: React.ReactNode) : AxeResults | undefined {
   const [results, setResults] = useState<AxeResults | undefined>();
-  useDelayedEffect(100, () => {
+  useDelayedEffect(100, useCallback(() => {
     const elem = containerRef.current;
     if (elem == null) return;
     if (axeRunning) {
@@ -21,7 +21,8 @@ export function useAxe(containerRef : React.RefObject<HTMLElement>, children: Re
       runAnalysisOn(elem, setResults);
       return () => {};
     }
-  });
+  // eslint-disable-next-line 
+  }, [containerRef, children])); // The children prop is needed to properly update only when the children change (not on other effects)
 
   return results;
 }
