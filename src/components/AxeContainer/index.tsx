@@ -54,6 +54,7 @@ function ViolatingNode({node} : {node: NodeResult}) {
   useElementOutliner(isOutlining ? element : undefined);
   //const messages = [...any, ...all, ...none].map(r => r.message);
   return <div className="violatingNodeReport" 
+    onClick={() => element?.scrollIntoView()}
     tabIndex={0}
     onMouseEnter={() => setIsOutlining(true)}
     onMouseLeave={(e) => setIsOutlining(false)}

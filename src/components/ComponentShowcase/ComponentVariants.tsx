@@ -4,7 +4,9 @@ import {FieldsDef, FieldDef} from './types';
 export function ComponentVariants<P>({Component, props, fields} : {Component: React.JSXElementConstructor<P>, props: P, fields: FieldsDef<P>}) {
   const variants = generateVariants(props, fields);
   const chunks = chunkVariants(variants, fields);
-  return <div className="componentVariants">{chunks.map((chunk,i) => 
+  return <div className="componentVariants">
+    Showing {variants.length} variants
+    {chunks.map((chunk,i) => 
     <div key={i}>
       <p>
         {Object.entries(chunk.props).map(([key, value]) => 
