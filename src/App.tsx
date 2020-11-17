@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.scss';
-import {AxeContainer} from './components/AxeContainer';
 import {ComponentShowcase, ShowCase, stringField, booleanField, optionsField} from './components/ComponentShowcase';
 
 import { Button as ButtonBlueprint, Intent} from "@blueprintjs/core";
@@ -37,16 +36,24 @@ const bootstrapButtonShowcase : ShowCase<typeof ButtonBootstrap>= {
     block: booleanField(),
   }
 }
+const materialButtonShowcase : ShowCase<typeof ButtonMaterial, {children: string}>= {
+  library: "materialDesign",
+  component: ButtonMaterial,
+  fields: {
+    variant: optionsField<"contained"| "outlined"| "text" | undefined>(["contained", "outlined", "text"]),
+    color: optionsField<"default"| "inherit"| "primary" | "secondary" | undefined>(["default", "primary", "secondary"]),
+    size: optionsField<"small"| "large" | "medium"| undefined>(["small", "medium", "large"]),
+    children: stringField("Text"),
+    disabled: booleanField(),
+    fullWidth: booleanField(),
+    disableElevation: booleanField(),
+  }
+}
 
 function App() {
   return <main>
     <h1>Showcase</h1>
-    <AxeContainer library="blueprint">
-      <ButtonBlueprint>Blueprint</ButtonBlueprint>
-    </AxeContainer>
-    <AxeContainer library="materialDesign">
-      <ButtonMaterial>Material Design</ButtonMaterial>
-    </AxeContainer>
+    <ComponentShowcase id="material-button" showcase={materialButtonShowcase} />
     <ComponentShowcase id="blueprint-button" showcase={buttonShowcase} />
     <ComponentShowcase id="bootstrap-button" showcase={bootstrapButtonShowcase} />
   </main>;
