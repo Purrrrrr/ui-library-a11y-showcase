@@ -6,17 +6,19 @@ export function ComponentVariants<P>({Component, props, fields} : {Component: Re
   const chunks = chunkVariants(variants, fields);
   return <div className="componentVariants">
     <p>Showing {variants.length} variants</p>
-    {chunks.map((chunk,i) => 
-    <div key={i}>
-      <p>
-        {Object.entries(chunk.props).map(([key, value]) => 
-          <Fragment key={key}><em>{key}</em>: <strong>{JSON.stringify(value)}</strong>, </Fragment>
-        )}
-        {chunk.changingProperty && <><em>{chunk.changingProperty}</em>: <strong>*</strong></>}
-      </p>
-      {chunk.variants.map((variant,i) => <Component key={i} {...variant} />)}
+    <div className="variants">
+      {chunks.map((chunk,i) =>
+      <div key={i}>
+        <p>
+          {Object.entries(chunk.props).map(([key, value]) =>
+            <Fragment key={key}><em>{key}</em>: <strong>{JSON.stringify(value)}</strong>, </Fragment>
+          )}
+          {chunk.changingProperty && <><em>{chunk.changingProperty}</em>: <strong>*</strong></>}
+        </p>
+        {chunk.variants.map((variant,i) => <Component key={i} {...variant} />)}
+      </div>
+      )}
     </div>
-    )}
   </div>;
 
 }

@@ -5,6 +5,23 @@
   }
 }
 
+.axeViolation {
+  max-height: 300px;
+  overflow: auto;
+  margin: 2px 0;
+  border: 1px solid black;
+  padding: 5px;
+
+  .impact {
+    background: #555;
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 0 8px;
+    font-size: 14px;
+  }
+}
+
 .violationOutliner {
   outline: 3px solid rgba(205,20,0,0.5);
   background: rgba(205,20,0,0.1);

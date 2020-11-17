@@ -7,13 +7,13 @@
 }
 
 .componentVariants {
-  display: flex;
-  flex-wrap: wrap;
-
-  & > p {
-    width: 100%;
+  .variants {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    max-height: 400px;
   }
-  & > div {
+  .variants > div {
     margin: 0.5em 1em;
   }
 }
@@ -26,7 +26,7 @@
   h2 {
     margin: 0;
   }
-  
+
   label {
     margin: 3px 0 2px;
     display: block;

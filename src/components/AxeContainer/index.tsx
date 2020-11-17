@@ -22,8 +22,8 @@ export function AxeContainer({library, children} : AxeContainerProps) {
 function ResultsView({results} : {results?: AxeResults}) {
   if (!results) return <div>Waiting for analysis results</div>
   if (!results.violations.length) return <div>No accessibility violations</div>
-  
-  return <div>
+
+  return <div className="axeResults">
     {results.violations.length} accessibility violations
     {results.violations.map(violation => <AxeViolation key={violation.id} violation={violation} />)}
   </div>
@@ -31,7 +31,7 @@ function ResultsView({results} : {results?: AxeResults}) {
 
 function AxeViolation({violation} : {violation: Result}) {
   const {nodes, id, impact, help, helpUrl} = violation;
-  return <section style={{margin: "2px 0", border: "1px solid black", padding: 5}}>
+  return <section className="axeViolation">
     <h2>
       {id}
       <Impact impact={impact} />
@@ -43,7 +43,7 @@ function AxeViolation({violation} : {violation: Result}) {
 }
 
 function Impact({impact} : {impact?: ImpactValue}) {
-  return <span style={{background: '#555', color: 'white', borderRadius: 5, padding: 3, margin: "0 8px", fontSize: 14}}>
+  return <span className="impact">
     Impact: {impact}
   </span>
 }
@@ -51,10 +51,10 @@ function Impact({impact} : {impact?: ImpactValue}) {
 function ViolatingNode({node} : {node: NodeResult}) {
   const {element, target, html, failureSummary} = node;
   const [isOutlining, setIsOutlining] = useState(false);
-  useElementOutliner(isOutlining ? element : undefined);
+  const updateOutline = useElementOutliner(isOutlining ? element : undefined);
   //const messages = [...any, ...all, ...none].map(r => r.message);
-  return <div className="violatingNodeReport" 
-    onClick={() => element?.scrollIntoView()}
+  return <div className="violatingNodeReport"
+    onClick={() => {element?.scrollIntoView(); setTimeout(updateOutline, 30)}}
     tabIndex={0}
     onMouseEnter={() => setIsOutlining(true)}
     onMouseLeave={(e) => setIsOutlining(false)}
@@ -63,6 +63,6 @@ function ViolatingNode({node} : {node: NodeResult}) {
   >
     <h4>CSS Path: {target.join(" - ")}</h4>
     <p>Offending HTML: {html}</p>
-    {failureSummary} 
+    {failureSummary}
   </div>
 }
