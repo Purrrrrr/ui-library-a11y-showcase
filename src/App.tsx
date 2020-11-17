@@ -9,7 +9,7 @@ import { Button as ButtonBlueprint, Intent} from "@blueprintjs/core";
 import { Button as ButtonMaterial } from '@material-ui/core';
 import ButtonBootstrap from 'react-bootstrap/Button';
 
-const buttonShowcase : ShowCase<{intent: Intent,text: string, disabled: boolean, large: boolean, outlined: boolean, fill: boolean, minimal: boolean, small: boolean}, typeof ButtonBlueprint>= {
+const buttonShowcase : ShowCase<typeof ButtonBlueprint, {intent: Intent, text: string}>= {
   library: "blueprint",
   component: ButtonBlueprint,
   fields: {
@@ -23,7 +23,7 @@ const buttonShowcase : ShowCase<{intent: Intent,text: string, disabled: boolean,
     fill: booleanField(),
   }
 }
-const bootstrapButtonShowcase : ShowCase<{variant: string, children: string, size: "lg" | "sm" | undefined, block: boolean, disabled: boolean}, typeof ButtonBootstrap>= {
+const bootstrapButtonShowcase : ShowCase<typeof ButtonBootstrap>= {
   library: "bootstrap",
   component: ButtonBootstrap,
   fields: {
@@ -33,14 +33,8 @@ const bootstrapButtonShowcase : ShowCase<{variant: string, children: string, siz
     ]),
     size: optionsField([undefined, 'lg', 'sm' ]),
     children: stringField("Text"),
-    block: booleanField(),
     disabled: booleanField(),
-    /*
-     * large: booleanField(),
-    small: booleanField(),
-    outlined: booleanField(),
-    minimal: booleanField(),
-    fill: booleanField(), */
+    block: booleanField(),
   }
 }
 

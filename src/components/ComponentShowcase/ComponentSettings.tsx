@@ -34,8 +34,8 @@ export function StringInput({value, onChange, label} : FieldComponentProps<strin
 export function NumberInput({value, onChange, label} : FieldComponentProps<number>) {
   return <LabeledInput type="number" value={String(value)} onChange={e => onChange(parseFloat(e.target.value))} label={label} />;
 }
-export function BooleanInput({value, onChange, label} : FieldComponentProps<boolean>) {
-  return <LabeledInput type="checkbox" className="boolean" checked={value} onChange={e => onChange(e.target.checked)} label={label} />;
+export function BooleanInput({value, onChange, label} : FieldComponentProps<boolean | undefined, undefined, boolean>) {
+  return <LabeledInput type="checkbox" className="boolean" checked={value ?? false} onChange={e => onChange(e.target.checked)} label={label} />;
 }
 export function OptionsInput<T>({value, onChange, label, data: options} : FieldComponentProps<T, T[]>) {
   if (!options) return <>Error</>;

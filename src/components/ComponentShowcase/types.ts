@@ -1,27 +1,29 @@
 import {UILibrary} from '../LibraryContainer';
 
-export type ShowCase<DefProps, Comp extends React.JSXElementConstructor<any>> = _ShowCase<DefProps, React.ComponentProps<Comp>>
-type _ShowCase<DefProps, AllProps> = {
+export type ShowCase<Comp extends React.JSXElementConstructor<any>, Overrides = {}> = ShowCaseWithOverrides<React.ComponentProps<Comp>, Overrides>
+export type ShowCaseWithOverrides<ComponentProps, Overrides> = ShowCaseWithProps<ComponentProps, Omit<ComponentProps, keyof Overrides> & Overrides>
+export type ShowCaseWithProps<ComponentProps, OverriddenProps> = {
   library: UILibrary
-  defaults?: Partial<AllProps>
-  component: React.JSXElementConstructor<DefProps | AllProps>
-  fields: FieldsDef<DefProps>
+  defaults?: Partial<ComponentProps>
+  component: React.JSXElementConstructor<OverriddenProps | ComponentProps>
+  fields: FieldsDef<OverriddenProps>
 }
 
 export type FieldsDef<P> = {
-  [key in keyof P] : FieldDef<P[key], any>
+  [key in keyof P] : FieldDef<P[key], any, any>
 }
-export type FieldDef<T, Data = undefined> = {
+export type FieldDef<T, Data = undefined, ChangedT extends T = T> = {
   default: T
   data?: Data
   valueGenerator?: () => T[]
-  fieldComponent: FieldComponent<T, Data>
+  fieldComponent: FieldComponent<T, Data, ChangedT>
 }
 
-export type FieldComponent<T, Data = undefined> = React.JSXElementConstructor<FieldComponentProps<T, Data>>;
-export interface FieldComponentProps<T, Data = undefined> {
+export type FieldComponent<T, Data = undefined, ChangedT extends T = T> = React.JSXElementConstructor<FieldComponentProps<T, Data, ChangedT>>;
+/** A field for changing a value of type T. Produces values of type ChangedTextends T. Supports optional Data for field options */
+export interface FieldComponentProps<T, Data = undefined, ChangedT extends T = T> {
   label: string
   value: T
-  onChange: (t: T) => void
+  onChange: (t: ChangedT) => void
   data: Data
 }

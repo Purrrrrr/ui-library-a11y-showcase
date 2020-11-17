@@ -5,7 +5,7 @@ export function ComponentVariants<P>({Component, props, fields} : {Component: Re
   const variants = generateVariants(props, fields);
   const chunks = chunkVariants(variants, fields);
   return <div className="componentVariants">
-    Showing {variants.length} variants
+    <p>Showing {variants.length} variants</p>
     {chunks.map((chunk,i) => 
     <div key={i}>
       <p>

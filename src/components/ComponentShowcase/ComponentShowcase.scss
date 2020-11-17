@@ -10,6 +10,9 @@
   display: flex;
   flex-wrap: wrap;
 
+  & > p {
+    width: 100%;
+  }
   & > div {
     margin: 0.5em 1em;
   }
