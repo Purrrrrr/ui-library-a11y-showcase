@@ -22,6 +22,7 @@ export type FieldDef<T, Data = undefined, ChangedT extends T = T> = {
 export type FieldComponent<T, Data = undefined, ChangedT extends T = T> = React.JSXElementConstructor<FieldComponentProps<T, Data, ChangedT>>;
 /** A field for changing a value of type T. Produces values of type ChangedTextends T. Supports optional Data for field options */
 export interface FieldComponentProps<T, Data = undefined, ChangedT extends T = T> {
+  id: string
   label: string
   value: T
   onChange: (t: ChangedT) => void

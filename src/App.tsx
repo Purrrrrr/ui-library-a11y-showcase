@@ -47,8 +47,8 @@ function App() {
     <AxeContainer library="materialDesign">
       <ButtonMaterial>Material Design</ButtonMaterial>
     </AxeContainer>
-    <ComponentShowcase showcase={buttonShowcase} />
-    <ComponentShowcase showcase={bootstrapButtonShowcase} />
+    <ComponentShowcase id="blueprint-button" showcase={buttonShowcase} />
+    <ComponentShowcase id="bootstrap-button" showcase={bootstrapButtonShowcase} />
   </main>;
 }
 

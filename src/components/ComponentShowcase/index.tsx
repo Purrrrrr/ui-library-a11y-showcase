@@ -7,7 +7,7 @@ import './ComponentShowcase.scss'
 
 export type {ShowCase} from './types';
 
-export function ComponentShowcase<A,P>({showcase} : {showcase: ShowCaseWithProps<A, P>}) {
+export function ComponentShowcase<A,P>({id, showcase} : {id: string, showcase: ShowCaseWithProps<A, P>}) {
   const {library, component: Component, fields} = showcase;
   const [props, setProps] = useState<P>({...showcase.defaults ?? {}, ...getDefaultProps(fields)})
   const [generateVariants, setGenerateVariants] = useState(true);
@@ -17,8 +17,8 @@ export function ComponentShowcase<A,P>({showcase} : {showcase: ShowCaseWithProps
       {generateVariants ? <ComponentVariants Component={Component} props={props} fields={fields} />: <Component {...props}/>}
     </AxeContainer>
     <SettingsBox>
-      <BooleanInput label="Generate variants automatically" value={generateVariants} onChange={setGenerateVariants} data={undefined}/>
-      <ComponentSettings props={props} setProps={setProps} fields={fields} fieldFilter={generateVariants ? field => !field.valueGenerator : undefined}/>
+      <BooleanInput id={id+"-show-all-variants"} label="Generate variants automatically" value={generateVariants} onChange={setGenerateVariants} data={undefined}/>
+      <ComponentSettings id={id} props={props} setProps={setProps} fields={fields} fieldFilter={generateVariants ? field => !field.valueGenerator : undefined}/>
     </SettingsBox>
   </section>
 }
