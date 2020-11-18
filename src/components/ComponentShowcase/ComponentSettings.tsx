@@ -1,13 +1,6 @@
 import React from 'react';
 import {FieldsDef, FieldDef, FieldComponentProps} from './types';
 
-export function SettingsBox({children} : {children: React.ReactNode}) {
-  return <div className="componentSettings">
-    <h2>Settings</h2>
-    {children}
-  </div>
-}
-
 interface ComponentSettingsProps<P> {
   id: string
   props: P

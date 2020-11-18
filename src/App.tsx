@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, useRoutes, NavLink } from 'react-router-dom';
 import './App.scss';
-import {ComponentShowcase, ShowCase} from './components/ComponentShowcase';
+import {ComponentShowcase, Showcase} from './components/ComponentShowcase';
 import buttonShowcases from './showcases/buttons';
-import showCases from './showcases';
+import showcases from './showcases';
 
 function App() {
   return <BrowserRouter>
@@ -17,15 +17,15 @@ function App() {
 function Nav() {
   return <nav>
     <NavLink to="/">🏠Home</NavLink>
-    {Object.keys(showCases).map(name => <>{' '}<NavLink to={name}>{name}</NavLink></>)}
+    {Object.keys(showcases).map(name => <>{' '}<NavLink to={name}>{name}</NavLink></>)}
   </nav>;
 }
 
 function Routes() {
   return useRoutes([
     {path: "/", element: <Home />},
-    ...Object.entries(showCases).map(([path, pathShowCases]) => ({
-      path, element: <><h1>{path}</h1><MultishowCase showCases={pathShowCases} /></>
+    ...Object.entries(showcases).map(([path, pathShowcases]) => ({
+      path, element: <><h1>{path}</h1><MultiShowcase showcases={pathShowcases} /></>
     }))
   ]);
 }
@@ -36,9 +36,9 @@ function Home() {
   </>;
 }
 
-function MultishowCase({showCases} : {showCases : {[k: string]: ShowCase<any, any>}}) {
+function MultiShowcase({showcases} : {showcases : {[k: string]: Showcase<any, any>}}) {
   return <>
-  {Object.values(showCases).map(showcase => <ComponentShowcase showcase={showcase} />)}
+  {Object.values(showcases).map(showcase => <ComponentShowcase showcase={showcase} />)}
   </>;
 }
 

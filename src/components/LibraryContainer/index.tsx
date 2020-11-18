@@ -15,3 +15,7 @@ export const LibraryContainer = React.forwardRef<HTMLDivElement, LibraryContaine
     {children}
   </div>;
 });
+
+export function libraryContainerFor(library: UILibrary) {
+  return (props: Omit<LibraryContainerProps, "library">) => <LibraryContainer library={library} {...props} />;
+}

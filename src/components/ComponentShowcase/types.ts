@@ -1,8 +1,8 @@
 import {UILibrary} from '../LibraryContainer';
 
-export type ShowCase<Comp extends React.JSXElementConstructor<any>, Overrides = {}> = ShowCaseWithOverrides<React.ComponentProps<Comp>, Overrides>
-export type ShowCaseWithOverrides<ComponentProps, Overrides> = ShowCaseWithProps<ComponentProps, Omit<ComponentProps, keyof Overrides> & Overrides>
-export type ShowCaseWithProps<ComponentProps, OverriddenProps> = {
+export type Showcase<Comp extends React.JSXElementConstructor<any>, Overrides = {}> = ShowcaseWithOverrides<React.ComponentProps<Comp>, Overrides>
+export type ShowcaseWithOverrides<ComponentProps, Overrides> = ShowcaseWithProps<ComponentProps, Omit<ComponentProps, keyof Overrides> & Overrides>
+export type ShowcaseWithProps<ComponentProps, OverriddenProps> = {
   id: string
   title: string
   library: UILibrary

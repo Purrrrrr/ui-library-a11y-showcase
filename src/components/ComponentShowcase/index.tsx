@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import { AxeContainer } from '../AxeContainer';
-import {ShowCaseWithProps, FieldsDef, FieldDef, FieldComponent} from './types';
-import {SettingsBox,ComponentSettings, StringInput, NumberInput, BooleanInput, OptionsInput} from './ComponentSettings';
+import {ShowcaseWithProps, FieldsDef, FieldDef, FieldComponent} from './types';
+import {ComponentSettings, StringInput, NumberInput, BooleanInput, OptionsInput} from './ComponentSettings';
 import {ComponentVariants} from './ComponentVariants';
 import './ComponentShowcase.scss'
 
-export type {ShowCase} from './types';
+export type {Showcase} from './types';
 
-export function ComponentShowcase<A,P>({id: propId, showcase} : {id?: string, showcase: ShowCaseWithProps<A, P>}) {
-  const {library, title, component: Component, fields, id: showCaseId} = showcase;
-  const id = propId ?? showCaseId;
+export function ComponentShowcase<A,P>({id: propId, showcase} : {id?: string, showcase: ShowcaseWithProps<A, P>}) {
+  const {library, title, component: Component, fields, id: showcaseId} = showcase;
+  const id = propId ?? showcaseId;
   const [props, setProps] = useState<P>({...showcase.defaults ?? {}, ...getDefaultProps(fields)})
   const [generateVariants, setGenerateVariants] = useState(true);
 
@@ -18,10 +18,11 @@ export function ComponentShowcase<A,P>({id: propId, showcase} : {id?: string, sh
     <AxeContainer library={library}>
       {generateVariants ? <ComponentVariants Component={Component} props={props} fields={fields} />: <Component {...props}/>}
     </AxeContainer>
-    <SettingsBox>
+    <div className="componentSettings">
+      <h2>Settings</h2>
       <BooleanInput id={id+"-show-all-variants"} label="Generate variants automatically" value={generateVariants} onChange={setGenerateVariants} data={undefined}/>
       <ComponentSettings id={id} props={props} setProps={setProps} fields={fields} fieldFilter={generateVariants ? field => !field.valueGenerator : undefined}/>
-    </SettingsBox>
+    </div>
   </section>
 }
 

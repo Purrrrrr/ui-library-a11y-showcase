@@ -1,7 +1,7 @@
 import buttons from './buttons';
 
-const showCases = {
+const showcases = {
   buttons,
 };
 
-export default showCases;
+export default showcases;

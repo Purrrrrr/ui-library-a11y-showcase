@@ -2,9 +2,9 @@ import { Button as ButtonBlueprint, Intent} from "@blueprintjs/core";
 import { Button as ButtonMaterial } from '@material-ui/core';
 import ButtonBootstrap from 'react-bootstrap/Button';
 
-import {ShowCase, stringField, booleanField, optionsField} from '../components/ComponentShowcase';
+import {Showcase, stringField, booleanField, optionsField} from '../components/ComponentShowcase';
 
-export const blueprintButtonShowcase : ShowCase<typeof ButtonBlueprint, {intent: Intent, text: string}>= {
+export const blueprintButtonShowcase : Showcase<typeof ButtonBlueprint, {intent: Intent, text: string}>= {
   id: 'blueprint-button',
   title: "Blueprint Button",
   library: "blueprint",
@@ -20,7 +20,7 @@ export const blueprintButtonShowcase : ShowCase<typeof ButtonBlueprint, {intent:
     fill: booleanField(),
   }
 }
-export const bootstrapButtonShowcase : ShowCase<typeof ButtonBootstrap>= {
+export const bootstrapButtonShowcase : Showcase<typeof ButtonBootstrap>= {
   id: 'bootstrap-button',
   title: "Bootstrap Button",
   library: "bootstrap",
@@ -36,7 +36,7 @@ export const bootstrapButtonShowcase : ShowCase<typeof ButtonBootstrap>= {
     block: booleanField(),
   }
 }
-export const materialButtonShowcase : ShowCase<typeof ButtonMaterial, {children: string}>= {
+export const materialButtonShowcase : Showcase<typeof ButtonMaterial, {children: string}>= {
   id: 'material-button',
   title: "Material Design Button",
   library: "materialDesign",
