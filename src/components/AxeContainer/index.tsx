@@ -11,7 +11,7 @@ export function AxeContainer({library, children} : AxeContainerProps) {
   const container = useRef<HTMLDivElement | null>(null);
   const results = useAxe(container, children);
 
-  return <section>
+  return <section className="axeContainer">
     <LibraryContainer library={library} ref={container}>
       {children}
     </LibraryContainer>

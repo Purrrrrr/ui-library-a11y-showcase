@@ -1,19 +1,20 @@
 * Make CSS isolation work?
 * Add AXE
 * Format AXE results in some pretty way
-  Decide on components to test
+  Decide and implement components to test
+  * Buttons
+    Breadcrumbs
     Forms
       Text inputs
       Numeric inputs?
-    Buttons
     Navigation bars
-    Breadcrumbs
     Links
     Dialogs
     Toasts?
     Tables?
     Tabs?
 
+  Separate AXE component from library provider?
   Try bugged frameworks after some time:
     Ant Design
     Semantic UI

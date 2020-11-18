@@ -7,12 +7,14 @@ import './ComponentShowcase.scss'
 
 export type {ShowCase} from './types';
 
-export function ComponentShowcase<A,P>({id, showcase} : {id: string, showcase: ShowCaseWithProps<A, P>}) {
-  const {library, component: Component, fields} = showcase;
+export function ComponentShowcase<A,P>({id: propId, showcase} : {id?: string, showcase: ShowCaseWithProps<A, P>}) {
+  const {library, title, component: Component, fields, id: showCaseId} = showcase;
+  const id = propId ?? showCaseId;
   const [props, setProps] = useState<P>({...showcase.defaults ?? {}, ...getDefaultProps(fields)})
   const [generateVariants, setGenerateVariants] = useState(true);
 
   return <section className="componentShowcase">
+    <h2>{title}</h2>
     <AxeContainer library={library}>
       {generateVariants ? <ComponentVariants Component={Component} props={props} fields={fields} />: <Component {...props}/>}
     </AxeContainer>

@@ -3,6 +3,8 @@ import {UILibrary} from '../LibraryContainer';
 export type ShowCase<Comp extends React.JSXElementConstructor<any>, Overrides = {}> = ShowCaseWithOverrides<React.ComponentProps<Comp>, Overrides>
 export type ShowCaseWithOverrides<ComponentProps, Overrides> = ShowCaseWithProps<ComponentProps, Omit<ComponentProps, keyof Overrides> & Overrides>
 export type ShowCaseWithProps<ComponentProps, OverriddenProps> = {
+  id: string
+  title: string
   library: UILibrary
   defaults?: Partial<ComponentProps>
   component: React.JSXElementConstructor<OverriddenProps | ComponentProps>

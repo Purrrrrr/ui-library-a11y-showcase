@@ -1,9 +1,19 @@
 .componentShowcase {
-  display: flex;
+  display: grid;
+  grid-template-areas: "title settings" "component settings";
   padding: 0.7em;
   margin: 0.7em;
   border: 1px solid black;
-  justify-content: space-between;
+
+  h2 {
+    grid-area: title;
+  }
+  .axeContainer {
+    grid-area: component;
+  }
+  .componentSettings {
+    grid-area: settings;
+  }
 }
 
 .componentVariants {
