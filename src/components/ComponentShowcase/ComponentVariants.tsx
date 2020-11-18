@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {FieldsDef, FieldDef} from './types';
 
-export function ComponentVariants<P>({Component, props, fields} : {Component: React.JSXElementConstructor<P>, props: P, fields: FieldsDef<P>}) {
+export function ComponentVariants<P>({Component, props, fields} : {Component: React.ComponentType<P>, props: P, fields: FieldsDef<P>}) {
   const variants = generateVariants(props, fields);
   const chunks = chunkVariants(variants, fields);
   return <div className="componentVariants">
@@ -20,7 +20,6 @@ export function ComponentVariants<P>({Component, props, fields} : {Component: Re
       )}
     </div>
   </div>;
-
 }
 
 function generateVariants<P>(props: P, fields: FieldsDef<P>) : P[] {

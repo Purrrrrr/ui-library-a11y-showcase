@@ -7,7 +7,7 @@ export type ShowcaseWithProps<ComponentProps, OverriddenProps> = {
   title: string
   library: UILibrary
   defaults?: Partial<ComponentProps>
-  component: React.JSXElementConstructor<OverriddenProps | ComponentProps>
+  component: React.ComponentType<OverriddenProps | ComponentProps>
   fields: FieldsDef<OverriddenProps>
 }
 
@@ -21,7 +21,7 @@ export type FieldDef<T, Data = undefined, ChangedT extends T = T> = {
   fieldComponent: FieldComponent<T, Data, ChangedT>
 }
 
-export type FieldComponent<T, Data = undefined, ChangedT extends T = T> = React.JSXElementConstructor<FieldComponentProps<T, Data, ChangedT>>;
+export type FieldComponent<T, Data = undefined, ChangedT extends T = T> = React.ComponentType<FieldComponentProps<T, Data, ChangedT>>;
 /** A field for changing a value of type T. Produces values of type ChangedTextends T. Supports optional Data for field options */
 export interface FieldComponentProps<T, Data = undefined, ChangedT extends T = T> {
   id: string
