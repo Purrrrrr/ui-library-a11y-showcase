@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, useRoutes, NavLink } from 'react-router-dom';
 import './App.scss';
 import {ComponentShowcase, Showcase} from './components/ComponentShowcase';
-import buttonShowcases from './showcases/buttons';
 import showcases from './showcases';
 
 function App() {
@@ -36,9 +35,9 @@ function Home() {
   </>;
 }
 
-function MultiShowcase({showcases} : {showcases : {[k: string]: Showcase<any, any>}}) {
+function MultiShowcase({showcases} : {showcases : Showcase<any, any>[]}) {
   return <>
-  {Object.values(showcases).map(showcase => <ComponentShowcase showcase={showcase} />)}
+  {showcases.map(showcase => <ComponentShowcase showcase={showcase} />)}
   </>;
 }
 
