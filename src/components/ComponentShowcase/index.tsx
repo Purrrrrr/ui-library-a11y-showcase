@@ -10,13 +10,13 @@ export type {Showcase} from './types';
 export {stringField, booleanField, numberField, optionsField, field} from './fields';
 
 export function ComponentShowcase<A,P>({showcase} : {showcase: ShowcaseWithProps<A, P>}) {
-  const {library, title, component: Component, fields, id} = showcase;
+  const {wrapperComponent, title, component: Component, fields, id} = showcase;
   const [props, setProps] = useState<P>({...showcase.defaults ?? {}, ...getDefaultProps(fields)})
   const [generateVariants, setGenerateVariants] = useState(true);
 
   return <section className="componentShowcase">
     <h2>{title}</h2>
-    <AxeContainer library={library}>
+    <AxeContainer wrapperComponent={wrapperComponent}>
       {generateVariants ? <ComponentVariants Component={Component} props={props} fields={fields} />: <Component {...props}/>}
     </AxeContainer>
     <div className="componentSettings">

@@ -1,6 +1,7 @@
 * Make CSS isolation work?
 * Add AXE
 * Format AXE results in some pretty way
+* Separate AXE component from library provider?
   Decide and implement components to test
   * Buttons
     Breadcrumbs
@@ -14,7 +15,6 @@
     Tables?
     Tabs?
 
-  Separate AXE component from library provider?
   Try bugged frameworks after some time:
     Ant Design
     Semantic UI

@@ -3,11 +3,12 @@ import { Button as ButtonMaterial } from '@material-ui/core';
 import ButtonBootstrap from 'react-bootstrap/Button';
 
 import {Showcase, stringField, booleanField, optionsField} from '../components/ComponentShowcase';
+import {libraryContainerFor} from '../components/LibraryContainer';
 
 export const blueprintButtonShowcase : Showcase<typeof ButtonBlueprint, {intent: Intent, text: string}>= {
   id: 'blueprint-button',
   title: "Blueprint Button",
-  library: "blueprint",
+  wrapperComponent: libraryContainerFor("blueprint"),
   component: ButtonBlueprint,
   fields: {
     intent: optionsField(Object.values(Intent)),
@@ -23,7 +24,7 @@ export const blueprintButtonShowcase : Showcase<typeof ButtonBlueprint, {intent:
 export const bootstrapButtonShowcase : Showcase<typeof ButtonBootstrap>= {
   id: 'bootstrap-button',
   title: "Bootstrap Button",
-  library: "bootstrap",
+  wrapperComponent: libraryContainerFor("bootstrap"),
   component: ButtonBootstrap,
   fields: {
     variant: optionsField([
@@ -39,7 +40,6 @@ export const bootstrapButtonShowcase : Showcase<typeof ButtonBootstrap>= {
 export const materialButtonShowcase : Showcase<typeof ButtonMaterial, {children: string}>= {
   id: 'material-button',
   title: "Material Design Button",
-  library: "materialDesign",
   component: ButtonMaterial,
   fields: {
     variant: optionsField<"contained"| "outlined"| "text" | undefined>(["contained", "outlined", "text"]),

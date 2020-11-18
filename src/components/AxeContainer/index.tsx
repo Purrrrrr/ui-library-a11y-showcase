@@ -1,20 +1,22 @@
 import React, {useRef, useState} from 'react';
-import {LibraryContainer} from '../LibraryContainer';
 import {useAxe, AxeResults, Result, ImpactValue, NodeResult} from './useAxe';
 import {useElementOutliner} from './useElementOutliner';
 
 import './AxeContainer.scss'
 
-interface AxeContainerProps extends React.ComponentProps<typeof LibraryContainer> {}
+type AxeContainerProps = React.PropsWithChildren<{
+  wrapperComponent?: React.ComponentType<React.PropsWithChildren<{}>>
+}>
 
-export function AxeContainer({library, children} : AxeContainerProps) {
+export function AxeContainer({wrapperComponent, children} : AxeContainerProps) {
   const container = useRef<HTMLDivElement | null>(null);
   const results = useAxe(container, children);
+  const Wrapper = wrapperComponent ?? "div"
 
   return <section className="axeContainer">
-    <LibraryContainer library={library} ref={container}>
+    <Wrapper ref={container}>
       {children}
-    </LibraryContainer>
+    </Wrapper>
     <ResultsView results={results} />
   </section>
 }

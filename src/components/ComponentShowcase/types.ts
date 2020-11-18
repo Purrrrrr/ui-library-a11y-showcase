@@ -1,13 +1,12 @@
-import {UILibrary} from '../LibraryContainer';
-
 export type Showcase<Comp extends React.JSXElementConstructor<any>, Overrides = {}> = ShowcaseWithOverrides<React.ComponentProps<Comp>, Overrides>
 export type ShowcaseWithOverrides<ComponentProps, Overrides> = ShowcaseWithProps<ComponentProps, Omit<ComponentProps, keyof Overrides> & Overrides>
 export type ShowcaseWithProps<ComponentProps, OverriddenProps> = {
   id: string
   title: string
-  library: UILibrary
   defaults?: Partial<ComponentProps>
   component: React.ComponentType<OverriddenProps | ComponentProps>
+  //Sometimes components need to be wrapped into a wrapper for things to work. The wrapper wraps all the generated variants of the component
+  wrapperComponent?: React.ComponentType<React.PropsWithChildren<{}>>
   fields: FieldsDef<OverriddenProps>
 }
 
