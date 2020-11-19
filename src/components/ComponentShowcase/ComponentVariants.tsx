@@ -4,22 +4,32 @@ import {FieldsDef, FieldDef} from './types';
 export function ComponentVariants<P>({Component, props, fields} : {Component: React.ComponentType<P>, props: P, fields: FieldsDef<P>}) {
   const variants = generateVariants(props, fields);
   const chunks = chunkVariants(variants, fields);
+  console.log(chunks);
   return <div className="componentVariants">
     <p>Showing {variants.length} variants</p>
-    <div className="variants">
+    <div className="variants" tabIndex={0}>
       {chunks.map((chunk,i) =>
       <div key={i}>
-        <p>
-          {Object.entries(chunk.props).map(([key, value]) =>
-            <Fragment key={key}><em>{key}</em>: <strong>{JSON.stringify(value)}</strong>, </Fragment>
-          )}
-          {chunk.changingProperty && <><em>{chunk.changingProperty}</em>: <strong>*</strong></>}
-        </p>
+        <VariantChunkDescription chunk={chunk} />
         {chunk.variants.map((variant,i) => <Component key={i} {...variant} />)}
       </div>
       )}
     </div>
   </div>;
+}
+
+function VariantChunkDescription<P>({chunk} : {chunk: VariantChunk<P>}) {
+  const {props, changingProperty} = chunk;
+  return <p>
+    {Object.entries(props).map(([key, value]) =>
+      <KeyValue key={key} keyName={key} value={JSON.stringify(value)} />
+    )}
+  {changingProperty && <KeyValue keyName={String(changingProperty.name)} value={changingProperty.values!.map(v => JSON.stringify(v)).join(", ")}/>}
+  </p>
+}
+
+function KeyValue({keyName, value} : {keyName: string, value: any}) {
+  return <> <em>{keyName}</em>: <strong>{value}</strong></>;
 }
 
 function generateVariants<P>(props: P, fields: FieldsDef<P>) : P[] {
@@ -39,25 +49,35 @@ function generateVariants<P>(props: P, fields: FieldsDef<P>) : P[] {
 }
 
 interface VariantChunk<P> {
-  props: Partial<P>,
-  changingProperty?: keyof P,
+  props: Partial<P>
+  changingProperty?: {
+    name: keyof P
+    values?: P[keyof P][]
+  }
   variants: P[]
 }
 
 function chunkVariants<P>(variants: P[], fields: FieldsDef<P>) : VariantChunk<P>[] {
   const keys = Object.keys(fields) as (keyof P)[];
   const generatedKeys = keys.filter(key => fields[key].valueGenerator);
-  if (generatedKeys.length <= 2) return [{props: variants[0], variants}];
-  //Used the second field key to chunk the variants
-  const staticProperties = generatedKeys.slice(1);
-
+  console.log(generatedKeys);
+  if (generatedKeys.length < 2) {
+    return [toChunk(variants, generatedKeys)];
+  };
   return splitWhenPropertyChanges(variants, generatedKeys[1]).map(variants => {
-    return {
-      props: pick(variants[0], staticProperties),
-      changingProperty: generatedKeys[0],
-      variants,
-    }
+    return toChunk(variants, generatedKeys);
   });
+}
+
+function toChunk<P>(variants: P[], generatedKeys: (keyof P)[]) {
+  return {
+    props: pick(variants[0], generatedKeys.slice(1)),
+    changingProperty: {
+      name: generatedKeys[0],
+      values: variants.map((v: P) => v[generatedKeys[0]]),
+    },
+    variants,
+  }
 }
 
 

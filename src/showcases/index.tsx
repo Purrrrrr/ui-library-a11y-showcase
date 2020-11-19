@@ -1,7 +1,8 @@
 import buttons from './buttons';
+import breadcrumbs from './breadcrumbs';
 
 const showcases = {
-  buttons,
+  buttons, breadcrumbs
 };
 
 export default showcases;

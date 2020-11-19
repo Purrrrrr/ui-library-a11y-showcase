@@ -16,7 +16,7 @@ function App() {
 function Nav() {
   return <nav>
     <NavLink to="/">🏠Home</NavLink>
-    {Object.keys(showcases).map(name => <>{' '}<NavLink to={name}>{name}</NavLink></>)}
+    {Object.keys(showcases).map(name => <React.Fragment key={name}>{' '}<NavLink to={name}>{name}</NavLink></React.Fragment>)}
   </nav>;
 }
 
@@ -37,7 +37,7 @@ function Home() {
 
 function MultiShowcase({showcases} : {showcases : Showcase<any, any>[]}) {
   return <>
-  {showcases.map(showcase => <ComponentShowcase showcase={showcase} />)}
+  {showcases.map(showcase => <ComponentShowcase key={showcase.id} showcase={showcase} />)}
   </>;
 }
 

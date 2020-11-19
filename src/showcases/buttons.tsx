@@ -1,6 +1,6 @@
-import {blueprintButtonShowcase} from './blueprint';
-import {bootstrapButtonShowcase} from './bootstrap';
-import {materialButtonShowcase} from './materialDesign';
+import {blueprintButton} from './blueprint';
+import {bootstrapButton} from './bootstrap';
+import {materialButton} from './materialDesign';
 
-const buttonShowcases = [materialButtonShowcase, blueprintButtonShowcase, bootstrapButtonShowcase];
+const buttonShowcases = [materialButton, blueprintButton, bootstrapButton];
 export default buttonShowcases;

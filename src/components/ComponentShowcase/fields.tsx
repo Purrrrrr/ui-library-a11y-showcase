@@ -4,8 +4,15 @@ import {FieldDef, FieldComponent, FieldComponentProps} from './types';
 export function stringField(defaultValue : string = "") : FieldDef<string> {
   return field(defaultValue, StringInput);
 }
-export function numberField(defaultValue : number = 0) : FieldDef<number> {
-  return field(defaultValue, NumberInput);
+export function numberField(defaultValue : number = 0, maybeData?: NumberFieldData) : FieldDef<number, NumberFieldData> {
+  const data : NumberFieldData = Object.assign({min: 0}, maybeData ?? {});
+  return field(defaultValue, NumberInput, {data, valueGenerator: getNumberValueGenerator(data)});
+}
+function getNumberValueGenerator({min, max: maybeMax, generatedMax}: NumberFieldData) : undefined | (() => number[]) {
+  const max = maybeMax ?? generatedMax;
+  if (min === undefined || max === undefined) return;
+  if (min > max) return getNumberValueGenerator({max: min, min: max});
+  return () => Array.from({length: max-min+1}, (_, i) => min+i);
 }
 export function booleanField(defaultValue : boolean = false) : FieldDef<boolean | undefined, undefined, boolean> {
   return field<boolean | undefined, undefined, boolean>(defaultValue, BooleanInput, {valueGenerator: () => [false, true]});
@@ -25,8 +32,11 @@ export function field<T,D = undefined, ChangedT extends T= T>(defaultValue: T, f
 export function StringInput({id, value, onChange, label} : FieldComponentProps<string>) {
   return <LabeledInput id={id} type="text" value={value} onChange={e => onChange(e.target.value)} label={label} />;
 }
-export function NumberInput({id, value, onChange, label} : FieldComponentProps<number>) {
-  return <LabeledInput id={id} type="number" value={String(value)} onChange={e => onChange(parseFloat(e.target.value))} label={label} />;
+
+interface NumberFieldData {min?: number, max?: number, generatedMax?: number}
+export function NumberInput({id, value, onChange, label, data} : FieldComponentProps<number, NumberFieldData>) {
+  const {min, max} = data;
+  return <LabeledInput id={id} type="number" value={String(value)} min={min} max={max} onChange={e => onChange(parseFloat(e.target.value))} label={label} />;
 }
 export function BooleanInput({id, value, onChange, label} : FieldComponentProps<boolean | undefined, undefined, boolean>) {
   return <LabeledInput id={id} type="checkbox" className="boolean" checked={value ?? false} onChange={e => onChange(e.target.checked)} label={label} />;

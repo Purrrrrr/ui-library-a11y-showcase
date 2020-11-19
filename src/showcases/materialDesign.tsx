@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 
 import {Showcase, stringField, booleanField, optionsField} from '../components/ComponentShowcase';
 
-export const materialButtonShowcase : Showcase<typeof Button, {children: string}>= {
+export const materialButton: Showcase<typeof Button, {children: string}>= {
   id: 'material-button',
   title: "Material Design Button",
   component: Button,

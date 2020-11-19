@@ -5,7 +5,7 @@ import {libraryContainerFor} from '../components/LibraryContainer';
 
 const wrapper = libraryContainerFor("bootstrap");
 
-export const bootstrapButtonShowcase : Showcase<typeof Button>= {
+export const bootstrapButton: Showcase<typeof Button>= {
   id: 'bootstrap-button',
   title: "Bootstrap Button",
   wrapperComponent: wrapper,
