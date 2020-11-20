@@ -1,7 +1,6 @@
 import {blueprintBreadcrumbs} from './blueprint';
 import {bootstrapButton} from './bootstrap';
-import {materialButton} from './materialDesign';
+import {materialBreadcrumbs} from './materialDesign';
 
-const breadcrumbsShowcases2 = [materialButton, blueprintBreadcrumbs, bootstrapButton];
-const breadcrumbsShowcases = [blueprintBreadcrumbs];
+const breadcrumbsShowcases = [materialBreadcrumbs, blueprintBreadcrumbs];
 export default breadcrumbsShowcases;

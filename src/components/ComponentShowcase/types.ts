@@ -1,4 +1,4 @@
-export type Showcase<Comp extends React.JSXElementConstructor<any>, Overrides = {}> = ShowcaseWithOverrides<React.ComponentProps<Comp>, Overrides>
+export type Showcase<Comp extends React.ComponentType<any>, Overrides = {}> = ShowcaseWithOverrides<React.ComponentProps<Comp>, Overrides>
 export type ShowcaseWithOverrides<ComponentProps, Overrides> = ShowcaseWithProps<ComponentProps, Omit<ComponentProps, keyof Overrides> & Overrides>
 export type ShowcaseWithProps<ComponentProps, OverriddenProps> = {
   id: string

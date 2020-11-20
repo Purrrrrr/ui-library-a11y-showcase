@@ -1,10 +1,14 @@
-import { Button } from '@material-ui/core';
+import React from 'react';
+import { Button, Breadcrumbs, Link, Typography } from '@material-ui/core';
 
-import {Showcase, stringField, booleanField, optionsField} from '../components/ComponentShowcase';
+import {stringField, booleanField, optionsField, numberField} from '../components/ComponentShowcase';
+import {getBreadcrumbTexts} from './utils/breadcrumbs';
+import {showcaseWrapper} from './utils/wrapper';
 
-export const materialButton: Showcase<typeof Button, {children: string}>= {
-  id: 'material-button',
-  title: "Material Design Button",
+const materialShowcase = showcaseWrapper("Material Design", "materialDesign");
+
+export const materialButton = materialShowcase<typeof Button, {children: string}>({
+  title: "Button",
   component: Button,
   fields: {
     variant: optionsField<"contained"| "outlined"| "text" | undefined>(["contained", "outlined", "text"]),
@@ -15,4 +19,22 @@ export const materialButton: Showcase<typeof Button, {children: string}>= {
     fullWidth: booleanField(),
     disableElevation: booleanField(),
   }
+});
+
+function BreadcrumbWrapper(
+  {numberOfItems} : { numberOfItems: number }
+) {
+  const texts = getBreadcrumbTexts(numberOfItems);
+  return <Breadcrumbs aria-label="Breadcrumbs">
+    {texts.slice(0, -1).map((text,i) => <Link key={i} href="#">{text}</Link>)}
+    <Typography color="textPrimary">{texts[numberOfItems-1]}</Typography>
+  </Breadcrumbs>
 }
+
+export const materialBreadcrumbs = materialShowcase<typeof BreadcrumbWrapper>({
+  title: "Breadcrumbs",
+  component: BreadcrumbWrapper,
+  fields: {
+    numberOfItems: numberField(1, {min: 1, generatedMax: 10}),
+  }
+});

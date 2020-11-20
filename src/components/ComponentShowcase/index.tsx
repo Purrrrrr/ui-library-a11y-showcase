@@ -6,7 +6,7 @@ import {BooleanInput} from './fields';
 import {ComponentVariants} from './ComponentVariants';
 import './ComponentShowcase.scss'
 
-export type {Showcase} from './types';
+export type {Showcase, ShowcaseWithProps, FieldsDef} from './types';
 export {stringField, booleanField, numberField, optionsField, field} from './fields';
 
 export function ComponentShowcase<A,P>({showcase} : {showcase: ShowcaseWithProps<A, P>}) {
