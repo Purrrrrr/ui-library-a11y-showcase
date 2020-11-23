@@ -1,5 +1,5 @@
 import React from 'react';
-import {FieldsDef, FieldDef, FieldComponentProps} from './types';
+import {FieldsDef, FieldDef} from './types';
 
 interface ComponentSettingsProps<P> {
   id: string

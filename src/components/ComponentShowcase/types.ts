@@ -3,6 +3,8 @@ export type ShowcaseWithOverrides<ComponentProps, Overrides> = ShowcaseWithProps
 export type ShowcaseWithProps<ComponentProps, OverriddenProps> = {
   id: string
   title: string
+  tags?: string[]
+  libraryName?: string,
   defaults?: Partial<ComponentProps>
   component: React.ComponentType<OverriddenProps | ComponentProps>
   //Sometimes components need to be wrapped into a wrapper for things to work. The wrapper wraps all the generated variants of the component

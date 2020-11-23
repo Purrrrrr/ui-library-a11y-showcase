@@ -7,19 +7,19 @@ import {showcaseWrapper} from './utils/wrapper';
 
 const materialShowcase = showcaseWrapper("Material Design", "materialDesign");
 
-export const materialButton = materialShowcase<typeof Button, {children: string}>({
-  title: "Button",
-  component: Button,
-  fields: {
-    variant: optionsField<"contained"| "outlined"| "text" | undefined>(["contained", "outlined", "text"]),
-    color: optionsField<"default"| "inherit"| "primary" | "secondary" | undefined>(["default", "primary", "secondary"]),
-    size: optionsField<"small"| "large" | "medium"| undefined>(["small", "medium", "large"]),
-    children: stringField("Text"),
-    disabled: booleanField(),
-    fullWidth: booleanField(),
-    disableElevation: booleanField(),
-  }
-});
+export const materialButton = materialShowcase<typeof Button, {children: string}>(
+  "Button", {
+    component: Button,
+    fields: {
+      variant: optionsField<"contained"| "outlined"| "text" | undefined>(["contained", "outlined", "text"]),
+      color: optionsField<"default"| "inherit"| "primary" | "secondary" | undefined>(["default", "primary", "secondary"]),
+      size: optionsField<"small"| "large" | "medium"| undefined>(["small", "medium", "large"]),
+      children: stringField("Text"),
+      disabled: booleanField(),
+      fullWidth: booleanField(),
+      disableElevation: booleanField(),
+    }
+  });
 
 function BreadcrumbWrapper(
   {numberOfItems} : { numberOfItems: number }
@@ -31,10 +31,10 @@ function BreadcrumbWrapper(
   </Breadcrumbs>
 }
 
-export const materialBreadcrumbs = materialShowcase<typeof BreadcrumbWrapper>({
-  title: "Breadcrumbs",
-  component: BreadcrumbWrapper,
-  fields: {
-     numberOfItems: numberField(1, {min: 1, generatedMax: 10}),
-  }
-});
+export const materialBreadcrumbs = materialShowcase<typeof BreadcrumbWrapper>(
+  "Breadcrumbs", {
+    component: BreadcrumbWrapper,
+    fields: {
+      numberOfItems: numberField(1, {min: 1, generatedMax: 10}),
+    }
+  });

@@ -8,20 +8,20 @@ import {showcaseWrapper} from './utils/wrapper';
 
 const bootstrapShowcase = showcaseWrapper("Bootstrap", "bootstrap");
 
-export const bootstrapButton = bootstrapShowcase<typeof Button>({
-  title: "Button",
-  component: Button,
-  fields: {
-    variant: optionsField([
-      'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link',
-      'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark', 'outline-link'
-    ]),
-    size: optionsField([undefined, 'lg', 'sm' ]),
-    children: stringField("Text"),
-    disabled: booleanField(),
-    block: booleanField(),
-  }
-});
+export const bootstrapButton = bootstrapShowcase<typeof Button>(
+  "Button", {
+    component: Button,
+    fields: {
+      variant: optionsField([
+        'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link',
+        'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark', 'outline-link'
+      ]),
+      size: optionsField([undefined, 'lg', 'sm' ]),
+      children: stringField("Text"),
+      disabled: booleanField(),
+      block: booleanField(),
+    }
+  });
 
 function BreadcrumbWrapper(
   {numberOfItems} : { numberOfItems: number }
@@ -33,10 +33,10 @@ function BreadcrumbWrapper(
   </Breadcrumb>
 }
 
-export const bootstrapBreadcrumbs = bootstrapShowcase<typeof BreadcrumbWrapper>({
-  title: "Breadcrumbs",
-  component: BreadcrumbWrapper,
-  fields: {
-    numberOfItems: numberField(1, {min: 1, generatedMax: 15}),
-  }
-});
+export const bootstrapBreadcrumbs = bootstrapShowcase<typeof BreadcrumbWrapper>(
+  "Breadcrumbs", {
+    component: BreadcrumbWrapper,
+    fields: {
+      numberOfItems: numberField(1, {min: 1, generatedMax: 15}),
+    }
+  });

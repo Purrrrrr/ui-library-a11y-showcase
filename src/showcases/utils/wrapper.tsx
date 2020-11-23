@@ -1,14 +1,19 @@
 import {libraryContainerFor, UILibrary} from '../../components/LibraryContainer';
 import {Showcase} from '../../components/ComponentShowcase';
 
-export function showcaseWrapper(name: string, library?: UILibrary) {
+type RC = React.ComponentType<any>;
+type PartialShowcase<P extends RC,O> = Omit<Showcase<P,O>, 'id' | 'title'>;
+
+export function showcaseWrapper(libraryName: string, library?: UILibrary) {
   const wrapper = library ? libraryContainerFor(library) : undefined;
-  function wrapShowcase<P extends React.ComponentType<any>,O = {}>({title, ...rest} : Omit<Showcase<P,O>, 'id'>) : Showcase<P,O> {
+  function wrapShowcase<P extends RC,O = {}>(elementName: string, {tags, ...showcase} : PartialShowcase<P,O>) : Showcase<P,O> {
     return {
-      id: name.toLowerCase()+'-'+(title).toLowerCase().replace(/ +/g, "-"),
-      title: name+" "+title,
+      id: libraryName.toLowerCase()+'-'+(elementName).toLowerCase().replace(/ +/g, "-"),
+      title: libraryName+" "+elementName,
+      libraryName,
+      tags: [elementName, ...(tags??[])],
       wrapperComponent: wrapper,
-      ...rest
+      ...showcase
     }
   }
   return wrapShowcase;
