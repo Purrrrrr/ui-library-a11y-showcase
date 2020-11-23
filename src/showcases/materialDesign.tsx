@@ -25,7 +25,7 @@ function BreadcrumbWrapper(
   {numberOfItems} : { numberOfItems: number }
 ) {
   const texts = getBreadcrumbTexts(numberOfItems);
-  return <Breadcrumbs aria-label="Breadcrumbs">
+  return <Breadcrumbs aria-label={"Material Design Breadcrumbs #"+numberOfItems}>
     {texts.slice(0, -1).map((text,i) => <Link key={i} href="#">{text}</Link>)}
     <Typography color="textPrimary">{texts[numberOfItems-1]}</Typography>
   </Breadcrumbs>
@@ -35,6 +35,6 @@ export const materialBreadcrumbs = materialShowcase<typeof BreadcrumbWrapper>({
   title: "Breadcrumbs",
   component: BreadcrumbWrapper,
   fields: {
-    numberOfItems: numberField(1, {min: 1, generatedMax: 10}),
+     numberOfItems: numberField(1, {min: 1, generatedMax: 10}),
   }
 });

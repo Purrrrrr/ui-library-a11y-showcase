@@ -4,11 +4,11 @@
 * Separate AXE component from library provider?
   Decide and implement components to test
   * Buttons
-    Breadcrumbs
+  * Breadcrumbs
+    Navigation bars
     Forms
       Text inputs
       Numeric inputs?
-    Navigation bars
     Links
     Dialogs
     Toasts?
