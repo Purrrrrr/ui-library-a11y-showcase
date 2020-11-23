@@ -3,14 +3,15 @@ import { Button, Breadcrumbs, Intent, IBreadcrumbProps} from "@blueprintjs/core"
 
 import {stringField, booleanField, optionsField, numberField} from '../components/ComponentShowcase';
 import {getBreadcrumbTexts} from './utils/breadcrumbs';
-import {showcaseWrapper} from './utils/wrapper';
+import {showcaseCollection} from './utils/showcaseCollection';
 
-const blueprintShowcase = showcaseWrapper("Blueprint", "blueprint");
+const blueprintShowcases = showcaseCollection("Blueprint", "blueprint");
+export default blueprintShowcases.showcases;
 
 const intentField = optionsField(Object.values(Intent));
 const popoverProps = {portalClassName: 'blueprint'};
 
-export const blueprintButton = blueprintShowcase<typeof Button, {intent: Intent, text: string}>(
+export const blueprintButton = blueprintShowcases.add<typeof Button, {intent: Intent, text: string}>(
   'Button', {
     component: Button,
     fields: {
@@ -33,7 +34,7 @@ function BreadcrumbWrapper(
   return <div style={{maxWidth: 500}}><Breadcrumbs items={items} popoverProps={popoverProps}/></div>
 }
 
-export const blueprintBreadcrumbs = blueprintShowcase<typeof BreadcrumbWrapper>(
+export const blueprintBreadcrumbs = blueprintShowcases.add<typeof BreadcrumbWrapper>(
   "Breadcrumbs", {
     component: BreadcrumbWrapper,
     fields: {
@@ -41,3 +42,4 @@ export const blueprintBreadcrumbs = blueprintShowcase<typeof BreadcrumbWrapper>(
       icon: booleanField(),
     }
   });
+

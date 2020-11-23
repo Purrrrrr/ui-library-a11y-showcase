@@ -4,11 +4,12 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 import {stringField, booleanField, optionsField, numberField} from '../components/ComponentShowcase';
 import {getBreadcrumbTexts} from './utils/breadcrumbs';
-import {showcaseWrapper} from './utils/wrapper';
+import {showcaseCollection} from './utils/showcaseCollection';
 
-const bootstrapShowcase = showcaseWrapper("Bootstrap", "bootstrap");
+const bootstrapShowcases = showcaseCollection("Bootstrap", "bootstrap");
+export default bootstrapShowcases.showcases;
 
-export const bootstrapButton = bootstrapShowcase<typeof Button>(
+export const bootstrapButton = bootstrapShowcases.add<typeof Button>(
   "Button", {
     component: Button,
     fields: {
@@ -33,7 +34,7 @@ function BreadcrumbWrapper(
   </Breadcrumb>
 }
 
-export const bootstrapBreadcrumbs = bootstrapShowcase<typeof BreadcrumbWrapper>(
+export const bootstrapBreadcrumbs = bootstrapShowcases.add<typeof BreadcrumbWrapper>(
   "Breadcrumbs", {
     component: BreadcrumbWrapper,
     fields: {

@@ -1,11 +1,12 @@
-import buttons from './buttons';
-import breadcrumbs from './breadcrumbs';
+import blueprintShowcases from './blueprint';
+import materialShowcases from './materialDesign';
+import bootstrapShowcases from './bootstrap';
 import {Showcase} from '../components/ComponentShowcase';
 
 type SC = Showcase<any,any>
 
 const showcases = [
-  ...buttons, ...breadcrumbs
+  ...blueprintShowcases, ...bootstrapShowcases, ...materialShowcases
 ];
 
 export function getLibraries(showcases: SC[]) : string[] {

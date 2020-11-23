@@ -3,11 +3,12 @@ import { Button, Breadcrumbs, Link, Typography } from '@material-ui/core';
 
 import {stringField, booleanField, optionsField, numberField} from '../components/ComponentShowcase';
 import {getBreadcrumbTexts} from './utils/breadcrumbs';
-import {showcaseWrapper} from './utils/wrapper';
+import {showcaseCollection} from './utils/showcaseCollection';
 
-const materialShowcase = showcaseWrapper("Material Design", "materialDesign");
+const materialShowcases = showcaseCollection("Material Design", "materialDesign");
+export default materialShowcases.showcases;
 
-export const materialButton = materialShowcase<typeof Button, {children: string}>(
+export const materialButton = materialShowcases.add<typeof Button, {children: string}>(
   "Button", {
     component: Button,
     fields: {
@@ -31,7 +32,7 @@ function BreadcrumbWrapper(
   </Breadcrumbs>
 }
 
-export const materialBreadcrumbs = materialShowcase<typeof BreadcrumbWrapper>(
+export const materialBreadcrumbs = materialShowcases.add<typeof BreadcrumbWrapper>(
   "Breadcrumbs", {
     component: BreadcrumbWrapper,
     fields: {
