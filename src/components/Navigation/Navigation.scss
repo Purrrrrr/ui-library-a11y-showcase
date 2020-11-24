@@ -1,0 +1,17 @@
+@use "../../colors" as colors;
+
+#mainNavigation {
+  background: colors.$gray-1;
+  padding: 0.6em;
+  box-shadow: 0 0 8px -3px colors.$gray-9;
+
+  a:link {
+    color: colors.$accent-6;
+  }
+  a:visited {
+    color: colors.$accent-8;
+  }
+  a:active {
+    color: colors.$accent-7;
+  }
+}

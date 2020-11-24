@@ -14,7 +14,7 @@ export function AxeContainer({wrapperComponent, children} : AxeContainerProps) {
   const Wrapper = wrapperComponent ?? "div"
 
   return <section className="axeContainer">
-    <Wrapper ref={container}>
+    <Wrapper ref={container} className="inspectedElement">
       {children}
     </Wrapper>
     <ResultsView results={results} />

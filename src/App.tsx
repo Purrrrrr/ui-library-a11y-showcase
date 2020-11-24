@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, useRoutes, NavLink } from 'react-router-dom';
-import './App.scss';
 import {ComponentShowcase, Showcase} from './components/ComponentShowcase';
+import {Navigation} from './components/Navigation';
 import showcases, {getTags, getShowcasesForTag, getLibraries, getShowcasesForLibrary} from './showcases';
+
+import './App.scss';
 
 function App() {
   return <BrowserRouter>
@@ -14,13 +16,13 @@ function App() {
 }
 
 function Nav() {
-  return <nav>
-    <NavLink to="/">🏠Home</NavLink>
+  return <Navigation>
+    <NavLink to="/">Home</NavLink>
     {" | Libraries: "}
     {getLibraries(showcases).map(name => <React.Fragment key={name}>{' '}<NavLink to={tagToUrl(name)}>{name}</NavLink></React.Fragment>)}
     {" | Element types: "}
     {getTags(showcases).map(name => <React.Fragment key={name}>{' '}<NavLink to={tagToUrl(name)}>{name}</NavLink></React.Fragment>)}
-  </nav>;
+  </Navigation>;
 }
 
 function Routes() {

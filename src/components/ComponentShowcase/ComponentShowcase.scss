@@ -1,37 +1,44 @@
+@use "../../colors" as colors;
+
 .componentShowcase {
   display: grid;
   grid-template-areas: "title settings" "component settings";
-  padding: 0.7em;
-  margin: 0.7em;
-  border: 1px solid black;
+  padding: 0 0.7em;
+  margin: 1.7em 0;
+  background: colors.$gray-2;
+  box-shadow: 1px 1px 8px -3px colors.$gray-9;
 
   h2 {
     grid-area: title;
+    margin: 1em 0em;
   }
-  .axeContainer {
+  .component {
+    .inspectedElement {
+      background: white;
+      margin: 1em 0em;
+    }
     grid-area: component;
+    margin-bottom: 1em;
   }
   .componentSettings {
     grid-area: settings;
+    margin-left: 1em;
   }
 }
 
 .componentVariants {
-  .variants {
-    display: flex;
-    flex-wrap: wrap;
-    overflow: auto;
-    max-height: 400px;
-  }
-  .variants > div {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+  max-height: 400px;
+  & > .componentVariantChunk {
     margin: 0.5em 1em;
   }
 }
 
 .componentSettings {
-  border-left: 1px solid black;
+  box-shadow: -2px 0px 3px -3px colors.$gray-9;
   padding: 0.7em;
-  margin-left: 1em;
 
   h2 {
     margin: 0;

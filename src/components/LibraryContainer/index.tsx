@@ -6,12 +6,13 @@ export type UILibrary = 'materialDesign' | 'blueprint' | 'bootstrap';
 type LibraryContainerProps = React.PropsWithChildren<{
   library: UILibrary
   inline?: boolean
+  className?: string
 }>
 
 export const LibraryContainer = React.forwardRef<HTMLDivElement, LibraryContainerProps>((
-  {library, children, inline = false} : LibraryContainerProps, ref
+  {library, children, className, inline = false} : LibraryContainerProps, ref
 ) => {
-  return <div className={library+(inline ? ' inline' : '')} ref={ref}>
+  return <div className={library+(inline ? ' inline' : '')+(className ? ' '+className : '')} ref={ref}>
     {children}
   </div>;
 });
