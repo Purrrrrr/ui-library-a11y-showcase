@@ -5,7 +5,7 @@
   Decide and implement components to test
   * Buttons
   * Breadcrumbs
-    Navigation bars
+  * Navigation bars
     Forms
       Text inputs
       Numeric inputs?

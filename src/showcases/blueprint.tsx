@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Breadcrumbs, Intent, IBreadcrumbProps} from "@blueprintjs/core";
+import { Alignment, Button, Breadcrumbs, Intent, IBreadcrumbProps, Menu, MenuItem, Navbar, Popover, Position} from "@blueprintjs/core";
 
 import {stringField, booleanField, optionsField, numberField} from '../components/ComponentShowcase';
 import {getBreadcrumbTexts} from './utils/breadcrumbs';
@@ -11,7 +11,7 @@ export default blueprintShowcases.showcases;
 const intentField = optionsField(Object.values(Intent));
 const popoverProps = {portalClassName: 'blueprint'};
 
-export const blueprintButton = blueprintShowcases.add<typeof Button, {intent: Intent, text: string}>(
+export const button = blueprintShowcases.add<typeof Button, {intent: Intent, text: string}>(
   'Button', {
     component: Button,
     fields: {
@@ -34,7 +34,7 @@ function BreadcrumbWrapper(
   return <div style={{maxWidth: 500}}><Breadcrumbs items={items} popoverProps={popoverProps}/></div>
 }
 
-export const blueprintBreadcrumbs = blueprintShowcases.add<typeof BreadcrumbWrapper>(
+export const breadcrumbs = blueprintShowcases.add<typeof BreadcrumbWrapper>(
   "Breadcrumbs", {
     component: BreadcrumbWrapper,
     fields: {
@@ -43,3 +43,28 @@ export const blueprintBreadcrumbs = blueprintShowcases.add<typeof BreadcrumbWrap
     }
   });
 
+function NavBarWrapper() {
+  const menu = <Menu>
+    <MenuItem text="Child one" />
+    <MenuItem text="Child two" />
+    <MenuItem text="Child three" />
+  </Menu>;
+
+  return <Navbar>
+    <Navbar.Group align={Alignment.LEFT}>
+      <Navbar.Heading>Blueprint</Navbar.Heading>
+      <Navbar.Divider />
+      <Button minimal icon="home" text="Home" />
+      <Button minimal icon="document" text="Files" />
+      <Popover content={menu} position={Position.RIGHT_BOTTOM} {...popoverProps} >
+        <Button minimal icon="add" text="Dropdown" />
+      </Popover>
+    </Navbar.Group>
+  </Navbar>;
+}
+
+export const navigation = blueprintShowcases.add<typeof NavBarWrapper>(
+  "Navigation", {
+    component: NavBarWrapper,
+    fields: {}
+  });
