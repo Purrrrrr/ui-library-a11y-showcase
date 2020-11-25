@@ -28,10 +28,11 @@ export function generateVariants<P>(initialProps: P, generatedValues: GeneratedV
     variants = vary(variants, key, values);
   }
   if (keys.length > 0) {
+    const values = generatedValues[chunkKey]!;
     return {
-      count: variants.length,
+      count: variants.length * values.length,
       chunks: variants.map(variant => 
-        toChunk(vary([variant], chunkKey, generatedValues[chunkKey]!), keys, chunkKey))
+        toChunk(vary([variant], chunkKey, values), keys, chunkKey))
     }
   } else {
     return {

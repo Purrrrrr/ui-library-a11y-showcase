@@ -1,27 +1,65 @@
 @use "../../colors" as colors;
-
-.violatingNodeReport {
-  &:hover, &:focus {
-    background: linear-gradient(0deg, rgba(205,95,0,0.083) 0%, rgba(205,95,0,0.05) 100%); 
-    outline: 1px solid black;
-  }
-}
+@use "sass:color";
 
 .axeViolation {
   background: colors.$gray-3;
   box-shadow: 1px 1px 6px -3px colors.$gray-9;
   max-height: 300px;
   overflow: auto;
-  margin: 2px 0;
-  padding: 5px;
+  margin: 7px 0;
+  padding: 0 5px 5px 5px;
+
+  a:link {
+    color: colors.$accent-6;
+  }
+  a:visited {
+    color: colors.$accent-8;
+  }
+  a:active {
+    color: colors.$accent-7;
+  }
+
+  h2 {
+    margin: 0.5em 0;
+  }
+
+  & > p {
+    margin: 0.5em 0;
+  }
 
   .impact {
-    background: #555;
+    background: colors.$accent-7;
     color: white;
     border-radius: 5px;
     padding: 3px;
     margin: 0 8px;
     font-size: 14px;
+  }
+}
+
+.violatingNodes {
+  display: flex;
+  flex-wrap: wrap;
+}
+.violatingNodeReport {
+  padding: 0.7em;
+  flex: 1 1 40%;
+  max-width: 700px;
+  &:hover, &:focus {
+    box-shadow: 0 0px 9px -3px colors.$gray-9;
+    background: colors.$accent-5;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: 14px;
+  }
+  p {
+    font-size: 10px;
+  }
+  pre {
+    display: inline;
+    white-space: pre-wrap;
   }
 }
 

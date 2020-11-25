@@ -18,18 +18,19 @@ export function ComponentVariantChunk<P,A>({component: Component, chunk} : {comp
 
 function VariantChunkDescription<P>({chunk} : {chunk: VariantChunk<P>}) {
   const {props, changingProperty} = chunk;
+  const propEntries = Object.entries(props);
   return <p>
-    {Object.entries(props).map(([key, value]) =>
-      <KeyValue key={key} keyName={key} value={JSON.stringify(value)} />
+    {propEntries.map(([key, value], i) =>
+      <KeyValue isFirst={i===0} key={key} keyName={key} value={JSON.stringify(value)} />
     )}
     {changingProperty && 
-      <KeyValue keyName={String(changingProperty.name)}
+      <KeyValue isFirst={propEntries.length === 0} keyName={String(changingProperty.name)}
         value={listToString(changingProperty.values!)}/>}
   </p>
 }
 
-function KeyValue({keyName, value} : {keyName: string, value: any}) {
-  return <> <em>{keyName}</em>: <strong>{value}</strong></>;
+function KeyValue({keyName, value, isFirst} : {keyName: string, value: any, isFirst?: boolean}) {
+  return <>{isFirst || ', '}<em>{keyName}</em>: <strong>{value}</strong></>;
 }
 
 function listToString<P>(values: P[]) : string {

@@ -6,6 +6,12 @@
   @import "normalize.css/normalize";
   @import "@blueprintjs/core/lib/css/blueprint";
   @import "@blueprintjs/icons/lib/css/blueprint-icons";
+  box-sizing: border-box;
+
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(black, 0);
 }
 
 .inline {

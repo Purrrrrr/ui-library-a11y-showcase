@@ -2,17 +2,21 @@
 
 .componentShowcase {
   display: grid;
+  grid-template-columns: 1fr fit-content(300px);
   grid-template-areas: "title settings" "component settings";
   padding: 0 0.7em;
   margin: 1.7em 0;
   background: colors.$gray-2;
   box-shadow: 1px 1px 8px -3px colors.$gray-9;
 
-  h2 {
+  & > h2 {
     grid-area: title;
-    margin: 1em 0em;
+    margin: 0.5em 0em 0.5em;
   }
   .component {
+    & > p {
+      margin: 0em;
+    }
     .inspectedElement {
       background: white;
       margin: 1em 0em;
@@ -33,6 +37,9 @@
   max-height: 400px;
   & > .componentVariantChunk {
     margin: 0.5em 1em;
+    & > p:first-child {
+      font-family: monospace;
+    }
   }
 }
 

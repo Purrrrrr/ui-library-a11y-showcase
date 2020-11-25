@@ -38,9 +38,11 @@ function AxeViolation({violation} : {violation: Result}) {
       {id}
       <Impact impact={impact} />
     </h2>
-    {help}. <a href={helpUrl}>More info</a>
+    <p>{help}. <a href={helpUrl}>More info</a></p>
     <h3>Nodes</h3>
-    {nodes.map((node,i) => <ViolatingNode key={i} node={node} />)}
+    <div className="violatingNodes">
+      {nodes.map((node,i) => <ViolatingNode key={i} node={node} />)}
+    </div>
   </section>
 }
 
@@ -63,8 +65,8 @@ function ViolatingNode({node} : {node: NodeResult}) {
     onFocus={() => setIsOutlining(true)}
     onBlur={() => setIsOutlining(false)}
   >
-    <h4>CSS Path: {target.join(" - ")}</h4>
-    <p>Offending HTML: {html}</p>
-    {failureSummary}
+    <h4>CSS Path: <pre>{target.join(" - ")}</pre></h4>
+    <p>Offending HTML: <pre>{html}</pre></p>
+    <p className="summary">{failureSummary}</p>
   </div>
 }
