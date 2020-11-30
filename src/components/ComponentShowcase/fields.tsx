@@ -17,8 +17,19 @@ function getNumberValueGenerator({min, max: maybeMax, generatedMax}: NumberField
 export function booleanField(defaultValue : boolean = false) : FieldDef<boolean | undefined, undefined, boolean> {
   return field<boolean | undefined, undefined, boolean>(defaultValue, BooleanInput, {valueGenerator: () => [false, true]});
 }
-export function optionsField<T>(options: T[]) : FieldDef<T, T[]> {
+export function optionsField<T>(...options: T[]) : FieldDef<T, T[]> {
   return field(options[0], OptionsInput, {data: options, valueGenerator: () => options});
+}
+
+export function optional<T, D = undefined>(fieldDef : FieldDef<T, D, T>) : FieldDef<T|undefined, D, T> {
+  const OriginalFieldComponent = fieldDef.fieldComponent;
+  function fieldComponent({value, ...props} : FieldComponentProps<T|undefined, D, T>) {
+    return <OriginalFieldComponent value={value ?? fieldDef.default} {...props} />
+  }
+  return {
+    ...fieldDef,
+    fieldComponent
+  }
 }
 
 export function field<T,D = undefined, ChangedT extends T= T>(defaultValue: T, fieldComponent: FieldComponent<T, D, ChangedT>, rest : Partial<FieldDef<T, D, ChangedT>> = {}) : FieldDef<T, D, ChangedT> {

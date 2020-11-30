@@ -7,11 +7,11 @@ import {ComponentVariantsView} from './ComponentVariantsView';
 import './ComponentShowcase.scss'
 
 export type {Showcase, ShowcaseWithProps, FieldsDef} from './types';
-export {stringField, booleanField, numberField, optionsField, field} from './fields';
+export * from './fields';
 
 export function ComponentShowcase<A,P>({showcase} : {showcase: ShowcaseWithProps<A, P>}) {
   const {wrapperComponent, title, component: Component} = showcase;
-  const {props, variants, Settings} = useComponentSettings(showcase);
+  const {props, variants, settingsFields} = useComponentSettings(showcase);
 
   return <section className="componentShowcase">
     <h2>{title}</h2>
@@ -26,7 +26,7 @@ export function ComponentShowcase<A,P>({showcase} : {showcase: ShowcaseWithProps
     </div>
     <div className="componentSettings">
       <h2>Settings</h2>
-      <Settings />
+      {settingsFields}
     </div>
   </section>
 }

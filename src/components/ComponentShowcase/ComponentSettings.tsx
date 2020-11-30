@@ -18,7 +18,7 @@ export function useComponentSettings<A,P>(showcase : ShowcaseWithProps<A, P>) {
     props,
     generatedValues: showAllVariants ? getGeneratedValues(fields) : undefined,
     variants,
-    Settings: () => <>
+    settingsFields: <>
       <BooleanInput id={id+"-show-all-variants"} label="Generate variants automatically"
         value={showAllVariants} onChange={setShowAllVariants} data={undefined}/>
       <ComponentSettings id={id} props={props} setProps={setProps}
