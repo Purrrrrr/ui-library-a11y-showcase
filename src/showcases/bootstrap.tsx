@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {ComponentProps as PropsOf} from 'react';
 import Button from 'react-bootstrap/Button';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Form from 'react-bootstrap/Form';
 
-import {stringField, booleanField, optionsField, numberField} from '../components/ComponentShowcase';
+import {stringField, booleanField, optional, optionsField, numberField} from '../components/ComponentShowcase';
 import {getBreadcrumbTexts} from './utils/breadcrumbs';
 import {showcaseCollection} from './utils/showcaseCollection';
+import {controlInputValue} from './utils/controlInputValue';
+import generateId from './utils/generateId';
 
 const bootstrapShowcases = showcaseCollection("Bootstrap", "bootstrap");
 export default bootstrapShowcases.showcases;
@@ -16,11 +19,11 @@ export const bootstrapButton = bootstrapShowcases.add<typeof Button>(
   "Button", {
     component: Button,
     fields: {
-      variant: optionsField([
+      variant: optionsField(
         'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link',
         'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark', 'outline-link'
-      ]),
-      size: optionsField([undefined, 'lg', 'sm' ]),
+      ),
+      size: optionsField(undefined, 'lg', 'sm'),
       children: stringField("Text"),
       disabled: booleanField(),
       block: booleanField(),
@@ -46,7 +49,7 @@ export const bootstrapBreadcrumbs = bootstrapShowcases.add<typeof BreadcrumbWrap
   });
 
 
-function NavBarWrapper({variant} : React.ComponentProps<Navbar>) {
+function NavBarWrapper({variant} : PropsOf<Navbar>) {
   return <Navbar variant={variant} bg={variant} aria-label={"Boostrap Navigation "+variant}>
     <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
     <Navbar.Toggle aria-controls={"basic-navbar-nav-"+variant} />
@@ -70,6 +73,49 @@ export const navigation = bootstrapShowcases.add<typeof NavBarWrapper>(
   "Navigation", {
     component: NavBarWrapper,
     fields: {
-      variant: optionsField(['light', 'dark']),
+      variant: optionsField('light', 'dark'),
     }
   });
+
+type FormGroupProps = {label?: string}
+
+function wrapWithFormGroup<P>(idBase: string, Input: React.ComponentType<P>) : React.ComponentType<P & FormGroupProps> {
+  return ({label, ...rest}) => {
+    const id = generateId(idBase, rest, {exclude: ['value', 'placeholder']});
+
+    return <Form.Group controlId={id}>
+      <Form.Label>{label}</Form.Label>
+      <Input {...(rest as P)} />
+    </Form.Group>
+  }
+}
+const formGroupFields = {
+  label: optional(stringField('Input label')),
+};
+
+const WrappedFormControl = controlInputValue(wrapWithFormGroup('Form.Control', Form.Control));
+export const textInput = bootstrapShowcases.add<typeof WrappedFormControl, {value: string}>(
+  "Form.Control", {
+    component: WrappedFormControl,
+    tags: ['Form Input'],
+    fields: {
+      value: stringField('Some value'),
+      ...formGroupFields,
+    }
+  });
+
+/** Form inputs:
+ * Text input (password? email?)
+ * Textarea
+ * Numeric input
+ * File input
+ *
+ * Select
+ *
+ * Checkbox
+ * Radio
+ *
+ * Slider -> Range
+ * Switch -> From.Check type="switch"
+ */
+

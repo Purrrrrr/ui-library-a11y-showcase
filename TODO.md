@@ -8,7 +8,13 @@
   * Navigation bars
     Forms
       Text inputs
-      Numeric inputs?
+      Numeric inputs
+      Text areas
+      File inputs?
+      Selects
+      Checkboxes
+      Radios
+      Switches
     Links
     Dialogs
     Toasts?

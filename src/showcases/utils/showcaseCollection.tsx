@@ -19,7 +19,7 @@ export function showcaseCollection(libraryName: string, libraryClassname?: UILib
       id: libraryName.toLowerCase()+'-'+(elementName).toLowerCase().replace(/ +/g, "-"),
       title: libraryName+" "+elementName,
       libraryName,
-      tags: [elementName, ...(tags??[])],
+      tags: tags ?? [elementName],
       wrapperComponent: wrapper,
       ...showcase
     }
